@@ -3,17 +3,17 @@ package ru.job4j.shortcut.model.dto;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
-public class ReqRegistrationDTO {
+public class UrlDTO {
 
-    @NotBlank(message = "Title must be not empty")
-    private String site;
+    @NotBlank(message = "Url must be not empty")
+    private String url;
 
-    public String getSite() {
-        return site;
+    public String getUrl() {
+        return url;
     }
 
-    public void setSite(String site) {
-        this.site = site;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
@@ -24,19 +24,19 @@ public class ReqRegistrationDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ReqRegistrationDTO that = (ReqRegistrationDTO) o;
-        return Objects.equals(site, that.site);
+        UrlDTO that = (UrlDTO) o;
+        return Objects.equals(url, that.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(site);
+        return Objects.hash(url);
     }
 
     @Override
     public String toString() {
-        return "ReqRegistrationDTO{"
-                + "site='" + site + '\''
+        return "ReqRegistrationUrlDTO{"
+                + "url='" + url + '\''
                 + '}';
     }
 }

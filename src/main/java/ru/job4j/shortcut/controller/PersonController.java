@@ -7,18 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import ru.job4j.shortcut.model.Person;
-import ru.job4j.shortcut.model.dto.ReqRegistrationDTO;
-import ru.job4j.shortcut.model.dto.RespRegistrationDTO;
+import ru.job4j.shortcut.model.dto.ReqRegistrationPersonDTO;
+import ru.job4j.shortcut.model.dto.RespRegistrationPersonDTO;
 import ru.job4j.shortcut.service.PersonService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,30 +34,25 @@ public class PersonController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity<RespRegistrationDTO> registration(@Valid @RequestBody ReqRegistrationDTO reqRegistration) {
+    public ResponseEntity<RespRegistrationPersonDTO> registration(@Valid @RequestBody ReqRegistrationPersonDTO reqRegistration) {
         Optional<Person> person = persons.findByUsername(reqRegistration.getSite());
-        RespRegistrationDTO rsl = new RespRegistrationDTO();
+        RespRegistrationPersonDTO rsl = new RespRegistrationPersonDTO();
         if (person.isPresent()) {
             Person user = person.get();
             rsl.setRegistration(false);
             rsl.setLogin(user.getLogin());
             rsl.setPassword(user.getPassword());
-            return new ResponseEntity<RespRegistrationDTO>(rsl, HttpStatus.OK);
+            return new ResponseEntity<RespRegistrationPersonDTO>(rsl, HttpStatus.OK);
         }
+        rsl.setRegistration(true);
+        rsl.setLogin(reqRegistration.getSite());
+        rsl.setPassword(persons.generatePassword());
         Person user = new Person();
         user.setSite(reqRegistration.getSite());
         user.setLogin(reqRegistration.getSite());
-        user.setPassword(encoder.encode(persons.generatePassword()));
+        user.setPassword(encoder.encode(rsl.getPassword()));
         persons.save(user);
-        rsl.setRegistration(true);
-        rsl.setLogin(user.getLogin());
-        rsl.setPassword(user.getPassword());
-        return new ResponseEntity<RespRegistrationDTO>(rsl, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<Person>> findAll() {
-        return ResponseEntity.ok(this.persons.findAll());
+        return new ResponseEntity<RespRegistrationPersonDTO>(rsl, HttpStatus.CREATED);
     }
 
 }

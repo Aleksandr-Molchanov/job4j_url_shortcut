@@ -1,13 +1,16 @@
 package ru.job4j.shortcut.model.dto;
 
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
-public class RespRegistrationDTO {
+public class RespRegistrationPersonDTO {
 
     private boolean registration;
 
+    @NotBlank(message = "Login must be not empty")
     private String login;
 
+    @NotBlank(message = "Password must be not empty")
     private String password;
 
     public boolean isRegistration() {
@@ -42,7 +45,7 @@ public class RespRegistrationDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RespRegistrationDTO that = (RespRegistrationDTO) o;
+        RespRegistrationPersonDTO that = (RespRegistrationPersonDTO) o;
         return registration == that.registration
                 && Objects.equals(login, that.login)
                 && Objects.equals(password, that.password);
