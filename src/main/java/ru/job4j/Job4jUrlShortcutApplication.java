@@ -45,7 +45,6 @@ public class Job4jUrlShortcutApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(Job4jUrlShortcutApplication.class, args);
-        System.out.println("Go to http://localhost:8080/users");
     }
 
 }
