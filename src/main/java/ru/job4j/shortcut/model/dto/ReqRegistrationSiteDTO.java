@@ -3,7 +3,7 @@ package ru.job4j.shortcut.model.dto;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
-public class ReqRegistrationPersonDTO {
+public class ReqRegistrationSiteDTO {
 
     @NotBlank(message = "Title must be not empty")
     private String site;
@@ -24,7 +24,7 @@ public class ReqRegistrationPersonDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ReqRegistrationPersonDTO that = (ReqRegistrationPersonDTO) o;
+        ReqRegistrationSiteDTO that = (ReqRegistrationSiteDTO) o;
         return Objects.equals(site, that.site);
     }
 

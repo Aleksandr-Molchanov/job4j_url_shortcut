@@ -1,40 +1,40 @@
 package ru.job4j.shortcut.service;
 
 import org.springframework.stereotype.Service;
-import ru.job4j.shortcut.model.Person;
-import ru.job4j.shortcut.repository.PersonRepository;
+import ru.job4j.shortcut.model.Site;
+import ru.job4j.shortcut.repository.SiteRepository;
 
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PersonService {
+public class SiteService {
 
-    private final PersonRepository repository;
+    private final SiteRepository repository;
 
-    public PersonService(PersonRepository repository) {
+    public SiteService(SiteRepository repository) {
         this.repository = repository;
     }
 
-    public List<Person> findAll() {
+    public List<Site> findAll() {
         return repository.findAll();
     }
 
-    public Person save(Person person) {
-        return repository.save(person);
+    public Site save(Site site) {
+        return repository.save(site);
     }
 
-    public Optional<Person> findById(int id) {
+    public Optional<Site> findById(int id) {
         return repository.findById(id);
     }
 
-    public void delete(Person person) {
-        repository.delete(person);
+    public void delete(Site site) {
+        repository.delete(site);
     }
 
-    public Optional<Person> findByUsername(String username) {
-        return repository.findByUsername(username);
+    public Optional<Site> findByDomain(String domain) {
+        return repository.findByDomain(domain);
     }
 
     public String generatePassword() {
@@ -45,7 +45,7 @@ public class PersonService {
         for (int i = 0; i < passwordLength; i++) {
             password.append(symbols.charAt(rnd.nextInt(symbols.length())));
         }
-        for (Person el : repository.findAll()) {
+        for (Site el : repository.findAll()) {
             if (password.toString().equals(el.getPassword())) {
                 generatePassword();
             }

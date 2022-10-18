@@ -7,19 +7,19 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Person {
+public class Site {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "Id must be non null")
     private int id;
     @NotBlank(message = "Title must be not empty")
-    private String username;
+    private String domain;
     @NotBlank(message = "Title must be not empty")
     private String login;
     @NotBlank(message = "Title must be not empty")
     private String password;
     @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
-    @JoinColumn(name = "person_id", foreignKey = @ForeignKey(name = "PERSON_ID_FK"))
+    @JoinColumn(name = "site_id", foreignKey = @ForeignKey(name = "SITE_ID_FK"))
     private Set<Url> urls;
 
     public int getId() {
@@ -31,11 +31,11 @@ public class Person {
     }
 
     public String getSite() {
-        return username;
+        return domain;
     }
 
     public void setSite(String site) {
-        this.username = site;
+        this.domain = site;
     }
 
     public String getLogin() {
@@ -70,24 +70,24 @@ public class Person {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Person person = (Person) o;
-        return id == person.id
-                && Objects.equals(username, person.username)
-                && Objects.equals(login, person.login)
-                && Objects.equals(password, person.password)
-                && Objects.equals(urls, person.urls);
+        Site site = (Site) o;
+        return id == site.id
+                && Objects.equals(domain, site.domain)
+                && Objects.equals(login, site.login)
+                && Objects.equals(password, site.password)
+                && Objects.equals(urls, site.urls);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, login, password, urls);
+        return Objects.hash(id, domain, login, password, urls);
     }
 
     @Override
     public String toString() {
-        return "User{"
+        return "Site{"
                 + "id=" + id
-                + ", username='" + username + '\''
+                + ", username='" + domain + '\''
                 + ", login='" + login + '\''
                 + ", password='" + password + '\''
                 + ", urls=" + urls

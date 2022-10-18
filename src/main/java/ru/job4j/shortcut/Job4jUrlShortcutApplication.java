@@ -1,4 +1,4 @@
-package ru.job4j;
+package ru.job4j.shortcut;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import liquibase.integration.spring.SpringLiquibase;

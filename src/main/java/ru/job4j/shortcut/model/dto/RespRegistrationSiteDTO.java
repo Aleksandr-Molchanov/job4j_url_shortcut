@@ -3,7 +3,7 @@ package ru.job4j.shortcut.model.dto;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
-public class RespRegistrationPersonDTO {
+public class RespRegistrationSiteDTO {
 
     private boolean registration;
 
@@ -45,7 +45,7 @@ public class RespRegistrationPersonDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RespRegistrationPersonDTO that = (RespRegistrationPersonDTO) o;
+        RespRegistrationSiteDTO that = (RespRegistrationSiteDTO) o;
         return registration == that.registration
                 && Objects.equals(login, that.login)
                 && Objects.equals(password, that.password);

@@ -2,7 +2,6 @@ package ru.job4j.shortcut.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +13,6 @@ import ru.job4j.shortcut.model.dto.CodeDTO;
 import ru.job4j.shortcut.service.UrlService;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,7 +22,7 @@ import java.util.Set;
 @RequestMapping("/urls")
 public class UrlController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PersonController.class.getSimpleName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(SiteController.class.getSimpleName());
 
     private final UrlService urls;
 

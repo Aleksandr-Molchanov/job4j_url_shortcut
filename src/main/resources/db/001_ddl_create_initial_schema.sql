@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS person(
+CREATE TABLE IF NOT EXISTS site(
     id serial primary key,
-    username varchar,
+    domain varchar,
     login varchar,
     password varchar
 );
