@@ -12,9 +12,9 @@ public class Url {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "Id must be non null")
     private int id;
-    @NotBlank(message = "Title must be not empty")
+    @NotBlank(message = "Url must be not empty")
     private String url;
-    @NotBlank(message = "Title must be not empty")
+    @NotBlank(message = "Code must be not empty")
     private String code;
     private int total;
 

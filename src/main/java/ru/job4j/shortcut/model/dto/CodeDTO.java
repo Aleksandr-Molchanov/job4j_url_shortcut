@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class CodeDTO {
 
-    @NotBlank(message = "Url must be not empty")
+    @NotBlank(message = "Code must be not empty")
     private String code;
 
     public String getCode() {

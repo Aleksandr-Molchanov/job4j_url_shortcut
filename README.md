@@ -18,6 +18,26 @@
  - Spring Security
  - JWT
 
+## Требования к окружению
+
+ - Java 17
+ - Apache Maven 3.8.1
+ - PostgreSQL 14
+
+## Запуск приложения
+
+ - Запустите утилиту pgAdmin 4
+ - Введите пароль
+ - В меню Object выберите пункт Create/Database и введите имя job4j_url_shortcut
+ - Клонируйте репозиторий с помощью утилиты CLI, введя команду 
+git clone https://github.com/Aleksandr-Molchanov/job4j_url_shortcut C:\projects\job4j_url_shortcut
+ - Перейдите в директорию C:\projects\job4j_url_shortcut\src\main\resources
+ - Откройте файл application.properties измените username и password на те, которые использовали
+и сохраните измененный файл.
+ - В утилите CLI перейдите в корень проекта, используя команду cd C:\projects\job4j_url_shortcut
+ - Выполните сборку проекта с помощью команды mvn install
+ - Запустите приложение командой java -jar target/job4j_url_shortcut-0.0.1-SNAPSHOT.jar
+
 ## Функционал
 
 Для использования сервиса, пользователю нужно зарегистрироваться по адресу http://localhost:8080/users/registration

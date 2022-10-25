@@ -12,11 +12,11 @@ public class Site {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull(message = "Id must be non null")
     private int id;
-    @NotBlank(message = "Title must be not empty")
+    @NotBlank(message = "Domain must be not empty")
     private String domain;
-    @NotBlank(message = "Title must be not empty")
+    @NotBlank(message = "Login must be not empty")
     private String login;
-    @NotBlank(message = "Title must be not empty")
+    @NotBlank(message = "Password must be not empty")
     private String password;
     @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
     @JoinColumn(name = "site_id", foreignKey = @ForeignKey(name = "SITE_ID_FK"))

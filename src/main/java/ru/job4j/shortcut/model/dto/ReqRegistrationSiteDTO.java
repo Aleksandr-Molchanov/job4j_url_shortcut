@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class ReqRegistrationSiteDTO {
 
-    @NotBlank(message = "Title must be not empty")
+    @NotBlank(message = "Site must be not empty")
     private String site;
 
     public String getSite() {
