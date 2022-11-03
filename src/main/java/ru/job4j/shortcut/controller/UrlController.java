@@ -2,6 +2,7 @@ package ru.job4j.shortcut.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,18 +33,18 @@ public class UrlController {
 
     @PostMapping("/convert")
     public ResponseEntity<CodeDTO> convert(@Valid @RequestBody UrlDTO reqRegistration) {
-        Optional<Url> find = urls.findAll().stream()
-                .filter(data -> Objects.equals(data, reqRegistration.getUrl()))
-                .findFirst();
         CodeDTO rsl = new CodeDTO();
-        if (find.isPresent()) {
-            rsl.setCode(find.get().getCode());
-        } else {
-            Url url = new Url();
-            url.setUrl(reqRegistration.getUrl());
-            url.setCode(urls.generateCode());
+        Url url = new Url();
+        url.setUrl(reqRegistration.getUrl());
+        url.setCode(urls.generateCode());
+        try {
             urls.save(url);
             rsl.setCode(url.getCode());
+        } catch (DataIntegrityViolationException dataIntegrityViolationException) {
+            Optional<Url> find = urls.findAll().stream()
+                    .filter(data -> Objects.equals(data, reqRegistration.getUrl()))
+                    .findFirst();
+            rsl.setCode(find.get().getCode());
         }
         return new ResponseEntity<CodeDTO>(rsl, HttpStatus.OK);
     }

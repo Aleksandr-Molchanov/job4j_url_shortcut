@@ -30,11 +30,11 @@ public class Site {
         this.id = id;
     }
 
-    public String getSite() {
+    public String getDomain() {
         return domain;
     }
 
-    public void setSite(String site) {
+    public void setDomain(String site) {
         this.domain = site;
     }
 

@@ -1,8 +1,10 @@
 package ru.job4j.shortcut.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,7 +15,6 @@ import ru.job4j.shortcut.model.dto.RespRegistrationSiteDTO;
 import ru.job4j.shortcut.service.SiteService;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -35,24 +36,24 @@ public class SiteController {
 
     @PostMapping("/registration")
     public ResponseEntity<RespRegistrationSiteDTO> registration(@Valid @RequestBody ReqRegistrationSiteDTO reqRegistration) {
-        Optional<Site> optionalSite = sites.findByDomain(reqRegistration.getSite());
         RespRegistrationSiteDTO rsl = new RespRegistrationSiteDTO();
-        if (optionalSite.isPresent()) {
-            Site site = optionalSite.get();
+        String password = sites.generatePassword();
+        Site site = new Site();
+        site.setDomain(reqRegistration.getSite());
+        site.setLogin(reqRegistration.getSite());
+        site.setPassword(encoder.encode(password));
+        try {
+            sites.save(site);
+            rsl.setRegistration(true);
+            rsl.setLogin(reqRegistration.getSite());
+            rsl.setPassword(password);
+        } catch (DataIntegrityViolationException dataIntegrityViolationException) {
+            Site findSite = sites.findByDomain(reqRegistration.getSite()).get();
             rsl.setRegistration(false);
-            rsl.setLogin(site.getLogin());
-            rsl.setPassword(site.getPassword());
-            return new ResponseEntity<RespRegistrationSiteDTO>(rsl, HttpStatus.OK);
-        }
-        rsl.setRegistration(true);
-        rsl.setLogin(reqRegistration.getSite());
-        rsl.setPassword(sites.generatePassword());
-        Site user = new Site();
-        user.setSite(reqRegistration.getSite());
-        user.setLogin(reqRegistration.getSite());
-        user.setPassword(encoder.encode(rsl.getPassword()));
-        sites.save(user);
-        return new ResponseEntity<RespRegistrationSiteDTO>(rsl, HttpStatus.CREATED);
+            rsl.setLogin(findSite.getLogin());
+            rsl.setPassword(findSite.getPassword());
+    }
+        return new ResponseEntity<RespRegistrationSiteDTO>(rsl, HttpStatus.OK);
     }
 
 }

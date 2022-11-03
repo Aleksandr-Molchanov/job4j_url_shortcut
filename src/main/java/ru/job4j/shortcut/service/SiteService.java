@@ -1,5 +1,7 @@
 package ru.job4j.shortcut.service;
 
+import org.postgresql.util.PSQLException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import ru.job4j.shortcut.model.Site;
 import ru.job4j.shortcut.repository.SiteRepository;
@@ -21,7 +23,7 @@ public class SiteService {
         return repository.findAll();
     }
 
-    public Site save(Site site) {
+    public Site save(Site site) throws DataIntegrityViolationException {
         return repository.save(site);
     }
 
@@ -44,11 +46,6 @@ public class SiteService {
         StringBuilder password = new StringBuilder(passwordLength);
         for (int i = 0; i < passwordLength; i++) {
             password.append(symbols.charAt(rnd.nextInt(symbols.length())));
-        }
-        for (Site el : repository.findAll()) {
-            if (password.toString().equals(el.getPassword())) {
-                generatePassword();
-            }
         }
         return password.toString();
     }
